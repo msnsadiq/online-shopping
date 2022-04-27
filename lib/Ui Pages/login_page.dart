@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+   LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+bool eye = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +50,13 @@ class LoginPage extends StatelessWidget {
             TextFormField(
 
               style: TextStyle(color: Colors.white),
-              obscureText: true,
+              obscureText: eye,
               decoration: InputDecoration(
                // suffixIcon: Icon(Icons.remove_red_eye),
                  suffixIcon: IconButton(onPressed: (){
-
+                setState(() {
+                  eye = !eye;
+                });
                  }, icon: Icon(Icons.remove_red_eye)),
                   border: OutlineInputBorder(
                       borderSide:BorderSide(color: Colors.black)
