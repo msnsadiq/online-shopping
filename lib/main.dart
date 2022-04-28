@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'onlineshopping',
       theme: ThemeData(
 
-        primarySwatch: Colors.blue,
+       // primarySwatch: Colors.blue,
+        errorColor: Colors.blueGrey
       ),
       home:LoginPage() ,
     );
