@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onlineshopping/Painter%20class/painter_class.dart';
@@ -27,20 +31,32 @@ class _SignUpPageState extends State<SignUpPage> {
   bool eye = true;
 
   final _formkey = GlobalKey<FormState>();
+  File? imageCamera;
+  File? imageGallery;
 
   TextEditingController _emailController = TextEditingController();
 
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _fullnameController = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
-  Future pickCamera()async{
-  final camera =  await ImagePicker().pickImage(source: ImageSource.camera);
-  if(camera == null)return;
+
+
+  Future pickImage(ImageSource source)async{
+    try {
+      final camera = await ImagePicker().pickImage(source: source);
+      if (camera == null) return;
+      final imageTemporary = File(camera.path);
+      setState(() {
+        this.imageCamera = imageTemporary;
+      });
+    }on PlatformException catch(e){
+      print("failed to pick image $e ");
+    }
+
   }
-  Future pickGallery()async{
-  final gallery =  await ImagePicker().pickImage(source: ImageSource.camera);
-  if(gallery == null)return;
-  }
+
+
+
 
 
   @override
@@ -90,7 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                             child: IconButton(
                                                 onPressed: (){
                                                   //print("tapped");
-                                                  pickGallery();
+                                                  pickImage(ImageSource.gallery);
                                                 },
                                                icon:Icon( FontAwesomeIcons.fileImage)),
                                           ),
@@ -103,7 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                             child: IconButton(
                                                 onPressed: (){
                                                   //print("tapped");
-                                                  pickCamera();
+                                                  pickImage(ImageSource.camera);
                                                 },
                                                 icon:Icon( FontAwesomeIcons.cameraRetro)),
                                           ),
@@ -114,7 +130,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                   );
                                 });
                             },
-                            child: Icon(Icons.person,size: MediaQuery.of(context).size.height*.2,color: Colors.white,)))),
+                            child: imageCamera != null ? Container(
+                              width: 150,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(image:FileImage(imageCamera!),fit: BoxFit.fill )
+                                ),
+                                ): Icon(Icons.person,size: MediaQuery.of(context).size.height*.2,color: Colors.white,)))),
                 SizedBox(
                   height: 20,
                 ),
