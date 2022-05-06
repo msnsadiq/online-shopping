@@ -11,12 +11,14 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey,
       body: LayoutBuilder(builder: (BuildContext context, BoxConstraints viewPortConstraints){
         return SingleChildScrollView(child: ConstrainedBox(constraints: BoxConstraints(minHeight: viewPortConstraints.maxHeight),
         child: Column(
-          children: [
-
+          children: const [
+Align(
+    alignment: Alignment.bottomCenter,
+    child: Text("product page"))
           ],
         ),
         ),);

@@ -7,8 +7,8 @@ import 'api_exception.dart';
 
 class ApiClient {
 
-  static final String basePath = 'https://api.themoviedb.org/3/';
-  String token = "55c72b3a0898da6b37311cf0603659e2";
+  static final String basePath = 'http://192.168.18.39:8000/';
+  //String token = "55c72b3a0898da6b37311cf0603659e2";
 
 
 
@@ -19,8 +19,8 @@ class ApiClient {
     };
     Response response;
 
-    String url = basePath + path + '?api_key=$token';
-    String searchUrl = basePath+'search/multi'+'?api_key=$token'+path;
+    String url = basePath + path ;
+    //String searchUrl = basePath+'search/multi';
     print(url);
 
     final nullableHeaderParams = (headerParams.isEmpty) ? null : headerParams;
@@ -41,9 +41,9 @@ class ApiClient {
       case "GET_":
         response = await post(Uri.parse(url), headers:  {},body: body,);
         break;
-      case "SEARCH":
-        response = await get(Uri.parse(searchUrl), headers: {'Accept': 'application/json','Content-Type': 'application/json'});
-        break;
+      // case "SEARCH":
+      //   response = await get(Uri.parse(searchUrl), headers: {'Accept': 'application/json','Content-Type': 'application/json'});
+      //   break;
       default:
         response = await get(Uri.parse(url), headers: {'Accept': 'application/json','Content-Type': 'application/json'});
     }

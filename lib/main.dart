@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlineshopping/Api/signup%20create%20api/api_signup_create.dart';
+//import 'package:onlineshopping/Api/signup%20create%20api/signup%20api.dart';
+import 'package:onlineshopping/BLOC%20signup%20create/bloc_sign_create_bloc.dart';
+//import 'package:onlineshopping/BlocSignUpCreate/bloc_sign_bloc.dart';
 import 'package:onlineshopping/Ui%20Pages/login_page.dart';
 import 'package:onlineshopping/Ui%20Pages/products_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+   MyApp({Key? key}) : super(key: key);
 
+  SignUpApi signUpApi = SignUpApi();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'onlineshopping',
-      theme: ThemeData(
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (BuildContext context)=> SignCreateBloc(signUpApi))],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'onlineshopping',
+        theme: ThemeData(
 
-       // primarySwatch: Colors.blue,
-        errorColor: Colors.blueGrey
+         // primarySwatch: Colors.blue,
+          errorColor: Colors.blueGrey
+        ),
+        home:LoginPage() ,
+       // home: ProductsPage(),
       ),
-      home:LoginPage() ,
-     // home: ProductsPage(),
     );
   }
 }
