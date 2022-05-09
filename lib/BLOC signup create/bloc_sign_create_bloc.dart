@@ -15,10 +15,12 @@ class SignCreateBloc extends Bloc<SignCreateEvent, SignCreateState> {
     on<FetchSignUp>((event, emit)async {
       emit(SignCreateLoading());
       try{
+        print("*************");
         signUpCreateModelClass = await signUpApi.getSignupCreate(event.userEmail, event.userPassword, event.userName);
         emit(SignCreateLoaded());
       }
       catch(e){
+        print("*************$e");
         emit(SignCreateError());
       }
       // TODO: implement event handler

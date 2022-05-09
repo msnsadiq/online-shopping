@@ -21,7 +21,7 @@ class ApiClient {
 
     String url = basePath + path ;
     //String searchUrl = basePath+'search/multi';
-    print(url);
+    print("E============================$url");
 
     final nullableHeaderParams = (headerParams.isEmpty) ? null : headerParams;
 
@@ -36,7 +36,7 @@ class ApiClient {
         response = await delete(Uri.parse(url), headers: nullableHeaderParams);
         break;
       case "POST_":
-        response = await post(Uri.parse(url), headers:  {},body: body,);
+        response = await post(Uri.parse(url), headers:  {'content-Type': 'application/json',},body: body,);
         break;
       case "GET_":
         response = await post(Uri.parse(url), headers:  {},body: body,);

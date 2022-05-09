@@ -8,8 +8,10 @@ class SignUpApi{
   ApiClient apiClient = ApiClient();
 
   Future<SignUpCreateModelClass>getSignupCreate(String userEmail, String userPassword, String userName)async{
-    String basePath = 'signup?email=$userEmail&password=$userPassword&name=$userName';
+    final basePath = 'signup?email=$userEmail&password=$userPassword&name=$userName';
+  //  print("&&&&&&&&&&&&&&&&&&&& checkking");
     Response response = await apiClient.invokeAPI(path: basePath, method: 'POST', body: null);
+    print(response.body);
     return SignUpCreateModelClass.fromJson(json.decode(response.body));
   }
 }
