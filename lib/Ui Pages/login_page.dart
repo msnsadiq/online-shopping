@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -41,8 +43,48 @@ class _LoginPageState extends State<LoginPage> {
       if(state is LoginLoaded){
         Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>ProductsPage()));
       }
+      if(state is LoginCheck){
+        showModalBottomSheet(
+            context: context,
+            builder: (ctx) {
+              return Container(
+                color: Colors.black,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(
+                      title: Text("Invalid account",style: TextStyle(color: Colors.red),),
+                      subtitle: Text("Sorry, we cant't find an account with this\nemailaddress. Please try again or create\na new  account",style: TextStyle(color: Colors.white),),
+                      trailing: GestureDetector(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>SignUpPage()));
+                          },
+                          child: Text("Sign Up",style: TextStyle(color: Colors.red),)),
+                    )
+                  ],
+                ),
+              );
+            }
+        );
+      }
       if(state is LoginError){
-        Text("something went wrong");
+        showModalBottomSheet(
+            context: context,
+            builder: (ctx) {
+              return Container(
+                color: Colors.black,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                  ListTile(
+                    title: Text("Network Error",style: TextStyle(color: Colors.red),),
+                    subtitle: Text("something went wrong",style: TextStyle(color: Colors.white),),
+                  )
+                  ],
+                ),
+              );
+            }
+        );
       }
 
     } ,child: Scaffold(

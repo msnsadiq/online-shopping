@@ -168,7 +168,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                                 ],
                                               ),
                                             );
-                                          });
+                                          }
+                                          );
                                     },
                                     child: imageCamera != null
                                         ? Container(

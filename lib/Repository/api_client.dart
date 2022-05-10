@@ -50,7 +50,7 @@ class ApiClient {
 
     print('status of $path =>' + (response.statusCode).toString());
     print(response.body);
-    if (response.statusCode >= 400) {
+    if (response.statusCode > 401) {
       log(path +
           ' : ' +
           response.statusCode.toString() +
@@ -58,7 +58,7 @@ class ApiClient {
           response.body);
 
       throw ApiException(
-          message: _decodeBodyBytes(response), statusCode: response.statusCode);
+          message: response.body, statusCode: response.statusCode);
     }
     return response;
   }

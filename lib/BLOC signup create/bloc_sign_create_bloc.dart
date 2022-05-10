@@ -17,6 +17,7 @@ class SignCreateBloc extends Bloc<SignCreateEvent, SignCreateState> {
       try{
         print("*************");
         signUpCreateModelClass = await signUpApi.getSignupCreate(event.userEmail, event.userPassword, event.userName);
+
         emit(SignCreateLoaded());
       }
       catch(e){
