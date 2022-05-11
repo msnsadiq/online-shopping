@@ -9,7 +9,9 @@ import 'package:onlineshopping/BLOC%20signup%20create/bloc_sign_create_bloc.dart
 import 'package:onlineshopping/Painter%20class/painter_class.dart';
 import 'package:onlineshopping/Ui%20Pages/login_page.dart';
 import 'package:onlineshopping/Ui%20Pages/products_page.dart';
+import 'package:onlineshopping/main.dart';
 import 'package:onlineshopping/validator/validation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key? key}) : super(key: key);
@@ -243,9 +245,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         TextFormField(
                           controller: _passwordController,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if( value == null  || value.isEmpty){
                               return "Password";
-                            } else {
+                            }else if(value.length < 6){
+                              return "password should be atleast 6 charecters";
+                            }
+
+                            else{
                               return null;
                             }
                           },
@@ -331,6 +337,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                return   BlocProvider.of<SignCreateBloc>(context).add(
                                      FetchSignUp( _fullnameController.value.text,  _emailController.value.text,
                                           _passwordController.value.text));
+
                                 } else {
                                   return print("not valid details");
                                 }return;
@@ -391,4 +398,12 @@ class _SignUpPageState extends State<SignUpPage> {
       return "password not  match";
     }
   }
+  // Future<void>sharedPref()async{
+  //   if(_formkey.currentState!.validate()){
+  //     final preference = await SharedPreferences.getInstance();
+  //     preference.setBool(KEY_NAME, true)
+  //   }
+  //
+  //
+  // }
 }

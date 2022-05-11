@@ -180,7 +180,11 @@ class _LoginPageState extends State<LoginPage> {
                           validator: (value){
                             if( value == null  || value.isEmpty){
                               return "Password";
-                            }else{
+                            }else if(value.length < 6){
+                              return "password should be atleast 6 charecters";
+                            }
+
+                            else{
                               return null;
                             }
                           },

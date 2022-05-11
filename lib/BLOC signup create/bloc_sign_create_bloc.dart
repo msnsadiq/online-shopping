@@ -4,6 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:onlineshopping/Api/signup%20create%20api/api_signup_create.dart';
 import 'package:onlineshopping/Model%20Classes/SignUpCreateModelClass.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 part 'bloc_sign_create_event.dart';
 part 'bloc_sign_create_state.dart';
@@ -19,6 +22,9 @@ class SignCreateBloc extends Bloc<SignCreateEvent, SignCreateState> {
         signUpCreateModelClass = await signUpApi.getSignupCreate(event.userEmail, event.userPassword, event.userName);
 
         emit(SignCreateLoaded());
+        final prefrence = await SharedPreferences.getInstance();
+        prefrence.setBool(KEY_NAME, true);
+
       }
       catch(e){
         print("*************$e");

@@ -8,7 +8,8 @@ import 'package:onlineshopping/BLOC%20signup%20create/bloc_sign_create_bloc.dart
 //import 'package:onlineshopping/BlocSignUpCreate/bloc_sign_bloc.dart';
 import 'package:onlineshopping/Ui%20Pages/login_page.dart';
 import 'package:onlineshopping/Ui%20Pages/products_page.dart';
-
+import 'package:onlineshopping/Ui%20Pages/screen_splash.dart';
+const KEY_NAME = 'user logged in';
 void main() {
   runApp( MyApp());
 }
@@ -33,8 +34,8 @@ class MyApp extends StatelessWidget {
          // primarySwatch: Colors.blue,
           errorColor: Colors.blueGrey
         ),
-        home:LoginPage() ,
-       // home: ProductsPage(),
+       // home:LoginPage() ,
+       home: ScreenSplash(),
       ),
     );
   }

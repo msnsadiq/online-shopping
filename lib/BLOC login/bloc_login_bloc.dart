@@ -5,6 +5,8 @@ import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:onlineshopping/Api/login%20api/login_api.dart';
 import 'package:onlineshopping/Repository/api_client.dart';
+import 'package:onlineshopping/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'bloc_login_event.dart';
 part 'bloc_login_state.dart';
@@ -22,6 +24,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
    if(loginValue == "\"Login successful!\"") {
      print(loginValue);
      emit(LoginLoaded());
+     final prefrence = await SharedPreferences.getInstance();
+     prefrence.setBool(KEY_NAME, true);
    }else if(loginValue == "\"Unauthorized\"") {
      print("login fail");
      emit(LoginCheck());
