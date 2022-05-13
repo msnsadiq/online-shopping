@@ -139,7 +139,8 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
+                                  borderSide: BorderSide(color: Colors.black),
+                              ),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               hintText: "Full Name",

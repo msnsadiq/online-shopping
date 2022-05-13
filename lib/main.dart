@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlineshopping/Api/login%20api/login_api.dart';
+import 'package:onlineshopping/Api/product%20read%20api/productread.dart';
 import 'package:onlineshopping/Api/signup%20create%20api/api_signup_create.dart';
 import 'package:onlineshopping/BLOC%20login/bloc_login_bloc.dart';
+import 'package:onlineshopping/BLOC%20product%20read/bloc_produc_read_bloc.dart';
 //import 'package:onlineshopping/Api/signup%20create%20api/signup%20api.dart';
 import 'package:onlineshopping/BLOC%20signup%20create/bloc_sign_create_bloc.dart';
 //import 'package:onlineshopping/BlocSignUpCreate/bloc_sign_bloc.dart';
@@ -19,12 +21,14 @@ class MyApp extends StatelessWidget {
 
   SignUpApi signUpApi = SignUpApi();
   LoginApii loginApii = LoginApii();
+  ProductRead productRead = ProductRead();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [BlocProvider(create: (BuildContext context)=> SignCreateBloc(signUpApi)),
-      BlocProvider(create: (BuildContext context)=>LoginBloc(loginApii))
+      BlocProvider(create: (BuildContext context)=>LoginBloc(loginApii)),
+        BlocProvider(create: (BuildContext context)=>ProducReadBloc(productRead)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
