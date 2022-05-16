@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlineshopping/Model%20Classes/ProductReadModel.dart';
+import 'package:onlineshopping/Ui%20Pages/details_page.dart';
 import 'package:onlineshopping/Ui%20Pages/login_page.dart';
+import 'package:onlineshopping/product%20images/product_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../BLOC product read/bloc_produc_read_bloc.dart';
@@ -86,94 +88,42 @@ late List<ProductReadModel> productModel;
                  }
                  if(state is ProducReadLoaded){
                    productModel = BlocProvider.of<ProducReadBloc>(context).productReadModel;
-                   return SingleChildScrollView(
-                       scrollDirection: Axis.vertical,
 
-                         child:Column(
-                           mainAxisSize: MainAxisSize.max,
-                           children: [
-                             ListTile(
-                               title: Text(productModel[12].productName.toString(),style: TextStyle(color: Colors.white),),
-                               trailing: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward,color: Colors.white,)),
+                   return
 
-                             ),
-                             SizedBox(
-                               height: 200,
-                               child: ListView.builder(
-                                 scrollDirection: Axis.horizontal,
-                                 itemCount: productModel.length,
-                                 itemBuilder: (ctx,index){
-                                   return  Card(
-                                     elevation: 20,
-                                     child:
-                                     Image.network('https://picsum.photos/200/300',fit: BoxFit.fill,),
-                                   )   ;
-                                 },
+                     GridView.builder(
+                         physics: NeverScrollableScrollPhysics(),
+                         shrinkWrap: true,
+                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+
+                         itemCount: productModel.length,
+                         itemBuilder: (ctx,index){
+                       return Stack(
+
+                         children: [
+                           Positioned(
+                             top:0,
+                             bottom: 0,
+                             left: 0,
+                             right: 0,
+                             child: GestureDetector(
+                               onTap: (){
+                                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>DetailsPage(
+                                     images: productImages[index].toString(),
+                                     id: productModel[index].id.toString())));
+                               },
+                               child: Card(
+                                 child: Image.network(productImages[index],fit: BoxFit.fill,),
                                ),
                              ),
-                             ListTile(
-                               title: Text("Mobiles",style: TextStyle(color: Colors.white),),
-                               trailing: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward,color: Colors.white,)),
-
-                             ),
-                             SizedBox(
-                               height: 200,
-                               child: ListView.builder(
-                                 scrollDirection: Axis.horizontal,
-                                 itemCount: 10,
-                                 itemBuilder: (ctx,index){
-                                   return  Card(
-                                     elevation: 20,
-                                     child:
-                                     Image.network('https://picsum.photos/300/200',fit: BoxFit.fill,),
-                                   )   ;
-                                 },
-                               ),
-                             ),
-
-                             ListTile(
-                               title: Text("Sports",style: TextStyle(color: Colors.white),),
-                               trailing: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward,color: Colors.white,)),
-
-                             ),
-                             SizedBox(
-                               height: 200,
-                               child: ListView.builder(
-                                 scrollDirection: Axis.horizontal,
-                                 itemCount: 10,
-                                 itemBuilder: (ctx,index){
-                                   return  Card(
-                                     elevation: 20,
-                                     child:
-                                     Image.network('https://picsum.photos/seed/picsum/200/300',fit: BoxFit.fill,),
-                                   )   ;
-                                 },
-                               ),
-                             ),
-                             ListTile(
-                               title: Text("Fashion",style: TextStyle(color: Colors.white),),
-                               trailing: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward,color: Colors.white,)),
-
-                             ),
-                             SizedBox(
-                               height: 200,
-                               child: ListView.builder(
-                                 scrollDirection: Axis.horizontal,
-                                 itemCount: 10,
-                                 itemBuilder: (ctx,index){
-                                   return  Card(
-                                     elevation: 20,
-                                     child:
-                                     Image.network('https://picsum.photos/id/237/200/300',fit: BoxFit.fill,),
-                                   )   ;
-                                 },
-                               ),
-                             )
-                           ],
-                         ) ,
-
-
-                     );
+                           ),
+                           Positioned(
+                               bottom: 8,
+                               right: 8,
+                               child: Text(productModel[index].productName.toString(),style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),))
+                         ],
+                       );
+                         });
 
                  }
                  if(state is ProducReadError){
